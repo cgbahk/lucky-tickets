@@ -91,17 +91,19 @@ const static int MAX = 900001;
  *
  * Both 'from' and 'to' are assumed to be have exactly MAX size.
  * It basically does convolution using NTT.
+ * @param flen length of valid (non-zero) 'from' index
  */
-void times2(const Mod *from, Mod *to);
+void times2(const Mod *from, Mod *to, int flen);
 
 /**
  * @brief generate from P[,x] to P[,x+1]
  *
  * Both 'from' and 'to' are assumed to be have exactly MAX size.
  * It basically implements recurrent relation.
+ * @param flen length of valid (non-zero) 'from' index
  * @param used list of used digits, e.g. 4 0 2
  */
-void next(const Mod *from, Mod *to, int *used);
+void next(const Mod *from, Mod *to, int flen, int *used);
 
 int prob()
 {
