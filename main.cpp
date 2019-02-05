@@ -200,7 +200,23 @@ void test()
     assert( (Mod(1)/Mod(2)) / Mod(3) == Mod(1)/Mod(6) );
   }
 
-  // TODO times2 test
+  // times2 test
+  {
+    Mod from[MAX], to[MAX];
+    for(int i=0; i<5; i++){ from[i] = Mod(i+1); }
+    for(int i=5; i<MAX; i++){ from[i] = Mod(0); }
+
+    times2(from, to, 5);
+    for(int j=0; j<20; j++)
+    {
+      Mod conv(0);
+      for(int i=0; i<=j; i++)
+      {
+        conv = conv + from[i] * from[j-i];
+      }
+      assert( to[j] ==  conv );
+    }
+  }
 
   // TODO next test
 
