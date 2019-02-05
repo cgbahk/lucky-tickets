@@ -200,6 +200,10 @@ void test()
     assert( (Mod(1)/Mod(2)) / Mod(3) == Mod(1)/Mod(6) );
   }
 
+  // TODO times2 test
+
+  // TODO next test
+
   // self-judge by input.txt
   {
     freopen("input.txt", "r", stdin);
