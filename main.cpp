@@ -99,8 +99,9 @@ void times2(const Mod *from, Mod *to);
  *
  * Both 'from' and 'to' are assumed to be have exactly MAX size.
  * It basically implements recurrent relation.
+ * @param used list of used digits, e.g. 4 0 2
  */
-void next(const Mod *from, Mod *to);
+void next(const Mod *from, Mod *to, int *used);
 
 int prob()
 {
