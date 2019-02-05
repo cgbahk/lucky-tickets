@@ -64,12 +64,12 @@ struct Mod
   {
     if(pow == 1){ return arg; }
     if(pow % 2)
-    { 
+    {
       Mod temp = power(arg, pow/2);
       return temp * temp * arg;
     }
     else
-    { 
+    {
       Mod temp = power(arg, pow/2);
       return temp * temp;
     }
