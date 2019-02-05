@@ -86,6 +86,22 @@ struct Mod
 
 const static int MAX = 900001;
 
+/**
+ * @brief generate from P[,x] to P[,2x]
+ *
+ * Both 'from' and 'to' are assumed to be have exactly MAX size.
+ * It basically does convolution using NTT.
+ */
+void times2(const Mod *from, Mod *to);
+
+/**
+ * @brief generate from P[,x] to P[,x+1]
+ *
+ * Both 'from' and 'to' are assumed to be have exactly MAX size.
+ * It basically implements recurrent relation.
+ */
+void next(const Mod *from, Mod *to);
+
 int prob()
 {
   // input
