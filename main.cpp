@@ -86,6 +86,22 @@ struct Mod
 };
 
 /**
+ * @brief forward fast Fourier transform
+ *
+ * @note Both 'from' and 'to' are assumed to be have exactly MAX size.
+ * @param n length of valid index for both from and to
+ */
+void *fft(const Mod *from, Mod *to, int n);
+
+/**
+ * @brief inverse fast Fourier transform
+ *
+ * @note Both 'from' and 'to' are assumed to be have exactly MAX size.
+ * @param n length of valid index for both from and to
+ */
+void *ifft(const Mod *from, Mod *to, int n);
+
+/**
  * @brief generate from P[,x] to P[,2x]
  *
  * It basically does convolution using NTT.
@@ -198,6 +214,10 @@ void test()
     assert( Mod(1)/Mod(2) - Mod(1)/Mod(3) == Mod(1)/Mod(6) );
     assert( (Mod(1)/Mod(2)) / Mod(3) == Mod(1)/Mod(6) );
   }
+
+  // TODO fft test
+
+  // TODO ifft test
 
   // times2 test
   {
