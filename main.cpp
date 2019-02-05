@@ -4,6 +4,7 @@ typedef long long ll;
 using namespace std;
 
 const static int P = 998244353;
+const static int MAX = 900001;
 
 // class for Modulo P operation
 struct Mod
@@ -83,8 +84,6 @@ struct Mod
 
   int _val;
 };
-
-const static int MAX = 900001;
 
 /**
  * @brief generate from P[,x] to P[,2x]
