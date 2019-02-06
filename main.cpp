@@ -244,7 +244,7 @@ int prob()
   static Mod q[MAX]; // use when x is else
 
   // initialize
-  for(int s=0; s<=dmax; s++){ p[s] = Mod(0); }
+  for(int s=0; s<=9; s++){ p[s] = Mod(0); }
   for(int i=0; i<k; i++){ p[d[i]] = Mod(1); }
 
   Mod *from;
@@ -295,8 +295,6 @@ int prob()
   }
 
   int ans = count.val();
-
-  // solve prob
 
   cout << ans << endl;
   return ans;
