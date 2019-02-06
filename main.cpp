@@ -117,7 +117,7 @@ void NTT(Mod *p, int n, bool is_inverse = false)
       std::swap(p[i], p[rev[i]]);
   for (int j = 1; j < n; j <<= 1)
   {
-    static Mod wn1, w, t0, t1;
+    Mod wn1, w, t0, t1;
     wn1 = Mod::power(G, (P - 1) / (j << 1));
     if (is_inverse)
       wn1 = Mod::power(wn1, P - 2);
