@@ -287,12 +287,12 @@ void test()
 
   // times2 test
   {
-    Mod from[MAX], to[MAX];
-    for(int i=0; i<5; i++){ from[i] = Mod(i+1); }
-    for(int i=5; i<MAX; i++){ from[i] = Mod(0); }
+    int n = 5;
+    Mod from[MAX], to[MAX]; // TODO static?
+    for(int i=0; i<n; i++){ from[i] = Mod(i); }
 
-    times2(from, to, 5);
-    for(int j=0; j<20; j++)
+    times2(from, to, n);
+    for(int j=0; j<2*n-1; j++)
     {
       Mod conv(0);
       for(int i=0; i<=j; i++)
