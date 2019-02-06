@@ -137,8 +137,8 @@ int prob()
 
   int x = 1;
   // p[], q[] are # of l-digit s.t. sum is x
-  Mod p[MAX]; // use when x is odd
-  Mod q[MAX]; // use when x is else
+  static Mod p[MAX]; // use when x is odd
+  static Mod q[MAX]; // use when x is else
 
   // initialize
   for(int s=0; s<=dmax; s++){ p[s] = Mod(0); }
