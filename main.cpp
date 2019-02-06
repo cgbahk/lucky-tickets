@@ -24,7 +24,7 @@ struct Mod
     _val = (int) ( val % (ll)P );
   }
 
-  int val(){ return _val; }
+  int val() const { return _val; }
 
   Mod operator+(Mod rhs)
   {
