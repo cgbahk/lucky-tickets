@@ -238,19 +238,38 @@ int prob()
     if (dmax < d[i]) { dmax = d[i]; }
   }
 
+  if (k == 1)
+  {
+    cout << 1;
+    return 1;
+  }
+  bool route[20];
+  int route_len = plan(m, route);
+
   int x = 1;
   // p[], q[] are # of l-digit s.t. sum is x
   static Mod p[MAX]; // use when x is odd
   static Mod q[MAX]; // use when x is else
 
   // initialize
-  for(int s=0; s<=9; s++){ p[s] = Mod(0); }
+  int valid = 10;
+  for(int s=0; s<=valid; s++){ p[s] = Mod(0); }
   for(int i=0; i<k; i++){ p[d[i]] = Mod(1); }
+
+  //cout << x << endl;
+  //for (int i=0; i<valid; i++)
+  //  cout << p[i].val() << " ";
+  //cout << endl;
 
   Mod *from;
   Mod *to;
-  while(x != m)
+
+  int step = 0;
+  while(true)
   {
+    step++;
+    if(step == route_len) break;
+
     x++;
     if(x % 2)
     {
@@ -263,20 +282,40 @@ int prob()
       to = q;
     }
 
-    for(int s=0; s<= x*dmax; s++)
+    times2(from, to, valid);
+    valid = 2 * valid - 1;
+
+    // cout << x << endl;
+    // for (int i=0; i<valid; i++)
+    //   cout << to[i].val() << " ";
+    // cout << endl;
+
+    if(route[step])
     {
-      to[s] = Mod(0);
-      for(int i=0; i<k; i++)
+      x++;
+      if(x % 2)
       {
-        if(s - d[i] >= 0 && s - d[i] <= (x-1)*dmax)
-        {
-          to[s] = to[s] + from[s - d[i]];
-        }
+        from = q;
+        to = p;
       }
+      else
+      {
+        from = p;
+        to = q;
+      }
+
+      next(from, to, valid, d, k);
+      valid += 9;
+      // cout << x << endl;
+      // for (int i=0; i<valid; i++)
+      //   cout << to[i].val() << " ";
+      // cout << endl;
+
     }
   }
 
-  assert( x == m );
+  assert( valid == 9 * m + 1 );
+
   Mod count(0);
   Mod *head;
 
@@ -289,7 +328,7 @@ int prob()
     head = q;
   }
 
-  for (int s=0; s<= x*dmax; s++)
+  for (int s=0; s<= m*dmax; s++)
   {
     count = count + head[s] * head[s];
   }
