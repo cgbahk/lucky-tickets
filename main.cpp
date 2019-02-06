@@ -146,9 +146,10 @@ void NTT(Mod *p, int n, bool is_inverse = false)
  *
  * It basically does convolution using NTT.
  * @note Both 'from' and 'to' are assumed to be have exactly MAX size.
+ * @note 'from' is not conserved..
  * @param flen length of valid (non-zero) 'from' index
  */
-void times2(const Mod *from, Mod *to, int flen);
+void times2(Mod *from, Mod *to, int flen);
 
 /**
  * @brief generate from P[,x] to P[,x+1]
@@ -295,15 +296,19 @@ void test()
     for(int i=0; i<64; i++) // 64 is smallest power of 2 s.t. >= 2n-1
     {
       if(i < 2*n-1)
-        assert( !(from[i] == 0) );
+        assert( !(to[i] == 0) );
       else
-        assert( from[i] == 0 );
+        assert( to[i] == 0 );
     }
   }
   { // correct value test
     int n = 5;
-    Mod from[MAX], to[MAX]; // TODO static?
-    for(int i=0; i<n; i++){ from[i] = Mod(i); }
+    static Mod from[MAX], from_copy[MAX], to[MAX];
+    for(int i=0; i<n; i++)
+    {
+      from[i] = Mod(P-1);
+      from_copy[i] = from[i];
+    }
 
     times2(from, to, n);
     for(int j=0; j<2*n-1; j++)
@@ -311,9 +316,9 @@ void test()
       Mod conv(0);
       for(int i=0; i<=j; i++)
       {
-        conv = conv + from[i] * from[j-i];
+        conv = conv + from_copy[i] * from_copy[j-i];
       }
-      assert( to[j] ==  conv );
+      assert( to[j] == conv );
     }
   }
 
