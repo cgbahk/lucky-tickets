@@ -149,7 +149,25 @@ void NTT(Mod *p, int n, bool is_inverse = false)
  * @note 'from' is not conserved..
  * @param flen length of valid (non-zero) 'from' index
  */
-void times2(Mod *from, Mod *to, int flen);
+void times2(Mod *from, Mod *to, int flen)
+{
+  // set n, smallest power of 2 s.t. >= 2*flen-1
+  int n;
+  for (n = 1; n < 2*flen-1; n <<= 1){}
+
+  // set non-valid entry to zero
+  for (int i=flen; i<n; i++)
+  {
+    from[i] = Mod(0);
+  }
+
+  NTT(from, n);
+  for (int i=0; i<n; i++)
+  {
+    to[i] = from[i] * from[i];
+  }
+  NTT(to, n, true);
+}
 
 /**
  * @brief generate from P[,x] to P[,x+1]
