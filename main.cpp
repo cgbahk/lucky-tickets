@@ -141,24 +141,6 @@ void NTT(Mod *p, int n, bool is_inverse = false)
   }
 }
 
-// TODO change (from, to) to (p, p)
-
-/**
- * @brief forward fast Fourier transform
- *
- * @note Both 'from' and 'to' are assumed to be have exactly MAX size.
- * @param n length of valid index for both from and to
- */
-void *fft(const Mod *from, Mod *to, int n);
-
-/**
- * @brief inverse fast Fourier transform
- *
- * @note Both 'from' and 'to' are assumed to be have exactly MAX size.
- * @param n length of valid index for both from and to
- */
-void *ifft(const Mod *from, Mod *to, int n);
-
 /**
  * @brief generate from P[,x] to P[,2x]
  *
@@ -287,10 +269,6 @@ void test()
   }
 
   // TODO NTT test
-
-  // TODO fft test
-
-  // TODO ifft test
 
   // times2 test
   {
