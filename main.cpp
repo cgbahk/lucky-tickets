@@ -273,7 +273,18 @@ void test()
     assert( (Mod(1)/Mod(2)) / Mod(3) == Mod(1)/Mod(6) );
   }
 
-  // TODO make_rev test
+  // make_rev test
+  {
+    int n = 16;
+    int r[16];
+    make_rev(r, n);
+
+    int expected[16] = {0,8,4,12,2,10,6,14,1,9,5,13,3,11,7,15};
+    for (int i=0; i<n; i++)
+    {
+      assert( r[i] == expected[i] );
+    }
+  }
 
   // TODO NTT test
 
