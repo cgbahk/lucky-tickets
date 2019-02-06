@@ -286,7 +286,21 @@ void test()
   }
 
   // times2 test
-  {
+  { // zero and non-zero test
+    int n = 20;
+    Mod from[100], to[100];
+    for(int i=0; i<n; i++) { from[i] = Mod(1); }
+    times2(from, to, n);
+
+    for(int i=0; i<64; i++) // 64 is smallest power of 2 s.t. >= 2n-1
+    {
+      if(i < 2*n-1)
+        assert( !(from[i] == 0) );
+      else
+        assert( from[i] == 0 );
+    }
+  }
+  { // correct value test
     int n = 5;
     Mod from[MAX], to[MAX]; // TODO static?
     for(int i=0; i<n; i++){ from[i] = Mod(i); }
