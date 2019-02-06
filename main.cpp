@@ -176,7 +176,7 @@ int prob()
   assert( x == m );
   Mod count(0);
   Mod *head;
-  
+
   if (x % 2)
   {
     head = p;
@@ -192,7 +192,7 @@ int prob()
   }
 
   int ans = count.val();
-  
+
   // solve prob
 
   cout << ans << endl;
@@ -244,7 +244,7 @@ void test()
   // self-judge by input.txt
   {
     freopen("input.txt", "r", stdin);
-    
+
     int T; cin >> T;
     for (int tc=1; tc<=T; tc++)
     {
