@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <utility>
 typedef long long ll;
 using namespace std;
 
@@ -84,6 +85,61 @@ struct Mod
 
   int _val;
 };
+
+const static Mod G(3);
+
+/**
+ * @brief generate rev according to length n
+ *
+ * So called Butterfly exchange. It is reordering of [0,n)
+ * In case of n = 8, rev is 04261537
+ * In case of n = 16, rev is 0 8 4 12 2 10 6 14 1 9 5 13 3 11 7 15
+ *
+ * @param n Length of rev to make. It SHOULD be power of 2.
+ */
+void make_rev(int *rev, int n)
+{
+  int len = 0;
+  for(int m=n; !(m & 1); m >>= 1)
+    len++;
+  rev[0] = 0;
+  for (int i = 1; i < n; i++)
+    rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (len - 1));
+}
+
+// Mod version of number_theoretic_transform()
+void NTT(Mod *p, int n, bool is_inverse = false)
+{
+  int rev[MAX];
+  make_rev(rev, n);
+  for (int i = 0; i < n; i++)
+    if (i < rev[i])
+      std::swap(p[i], p[rev[i]]);
+  for (int j = 1; j < n; j <<= 1)
+  {
+    static Mod wn1, w, t0, t1;
+    wn1 = Mod::power(G, (P - 1) / (j << 1));
+    if (is_inverse)
+      wn1 = Mod::power(wn1, P - 2);
+    for (int i = 0; i < n; i += j << 1)
+    {
+      w = Mod(1);
+      for (int k = 0; k < j; k++)
+      {
+        t0 = p[i + k];
+        t1 = w * p[i + j + k];
+        p[i + k] = t0 + t1;
+        p[i + j + k] = t0 - t1;
+        w = w * wn1;
+      }
+    }
+  }
+  if (is_inverse)
+  {
+    for (int i = 0; i < n; i++)
+      p[i] = p[i] / Mod(n);
+  }
+}
 
 // TODO change (from, to) to (p, p)
 
@@ -216,6 +272,10 @@ void test()
     assert( Mod(1)/Mod(2) - Mod(1)/Mod(3) == Mod(1)/Mod(6) );
     assert( (Mod(1)/Mod(2)) / Mod(3) == Mod(1)/Mod(6) );
   }
+
+  // TODO make_rev test
+
+  // TODO NTT test
 
   // TODO fft test
 
