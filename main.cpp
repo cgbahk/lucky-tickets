@@ -416,6 +416,13 @@ void test()
       assert( route[i] == expected[i] );
     }
   }
+  {
+    int m = 100010;
+    bool route[20];
+
+    int len = plan(m, route);
+    assert( len == 17 );
+  }
 
   // self-judge by input.txt
   {
