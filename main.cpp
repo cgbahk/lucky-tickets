@@ -4,7 +4,7 @@ typedef long long ll;
 using namespace std;
 
 const static int P = 998244353;
-const static int MAX = 900001;
+const static int MAX = 1 << 20;
 
 // class for Modulo P operation
 struct Mod
