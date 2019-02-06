@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cassert>
 #include <utility>
+#include <stack>
 typedef long long ll;
 using namespace std;
 
@@ -196,6 +197,34 @@ void next(const Mod *from, Mod *to, int flen, int *used, int k)
   }
 }
 
+/**
+ * @brief Plan route according to m
+ *
+ * If m = 1011001 in bit repr, then route = [1,0,1,1,0,0,1]
+ * @note route[0] is always true, and may passed
+ *
+ * @param m Input
+ * @param route bool string whether execute next() or not
+ * @return Length of route
+ */
+int plan(const int m, bool *route)
+{
+  std::stack<bool> s;
+  int n = m;
+  while(n)
+  {
+    s.push(n&1);
+    n >>= 1;
+  }
+  int len = 0;
+  while(!s.empty())
+  {
+    route[len++] = s.top();
+    s.pop();
+  }
+  return len;
+}
+
 int prob()
 {
   // input
@@ -373,6 +402,20 @@ void test()
     for (int j=0; j<n+9; j++)
     {
       assert( to[j].val() == expected[j] );
+    }
+  }
+
+  // plan test
+  {
+    int m = 89;
+    bool route[20];
+    bool expected[] = {1,0,1,1,0,0,1};
+
+    int len = plan(m, route);
+    assert( len == 7 );
+    for (int i=0; i<len; i++)
+    {
+      assert( route[i] == expected[i] );
     }
   }
 
