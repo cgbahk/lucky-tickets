@@ -194,7 +194,7 @@ int prob()
 
   int x = 1;
   // p[], q[] are # of l-digit s.t. sum is x
-  static Mod p[MAX]; // use when x is odd TODO delete static?
+  static Mod p[MAX]; // use when x is odd
   static Mod q[MAX]; // use when x is else
 
   // initialize
