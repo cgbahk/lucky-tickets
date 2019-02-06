@@ -176,8 +176,25 @@ void times2(Mod *from, Mod *to, int flen)
  * @note Both 'from' and 'to' are assumed to be have exactly MAX size.
  * @param flen length of valid (non-zero) 'from' index
  * @param used list of used digits, e.g. 4 0 2
+ * @param k Length of used
  */
-void next(const Mod *from, Mod *to, int flen, int *used);
+void next(const Mod *from, Mod *to, int flen, int *used, int k)
+{
+  // init to
+  for (int i=0; i<flen+9; i++)
+  {
+    to[i] = Mod(0);
+  }
+
+  for(int i=0; i<flen; i++)
+  {
+    for (int j=0; j<k; j++)
+    {
+      int idx = i + used[j];
+      to[idx] = to[idx] + from[i];
+    }
+  }
+}
 
 int prob()
 {
@@ -340,7 +357,24 @@ void test()
     }
   }
 
-  // TODO next test
+  // next test
+  {
+    int n = 5;
+    Mod from[100], to[100];
+    int used[] = {4,0,2,7}, k = 4;;
+    for (int i=0; i<n; i++)
+    {
+      from[i] = Mod(1);
+    }
+
+    next(from, to, n, used, k);
+
+    int expected[] = {1, 1, 2, 2, 3, 2, 2, 2, 2, 1, 1, 1, 0, 0};
+    for (int j=0; j<n+9; j++)
+    {
+      assert( to[j].val() == expected[j] );
+    }
+  }
 
   // self-judge by input.txt
   {
